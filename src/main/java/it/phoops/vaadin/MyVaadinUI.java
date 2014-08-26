@@ -11,6 +11,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 @Theme("mytheme")
 @SuppressWarnings("serial")
@@ -31,7 +32,16 @@ public class MyVaadinUI extends UI
         Button button = new Button("Click Me");
         button.addClickListener(new Button.ClickListener() {
             public void buttonClick(ClickEvent event) {
-                layout.addComponent(new Label("Thank you for clicking"));
+            	Window popup = new Window("I'm a popup");
+            	popup.setModal(true);
+            	VerticalLayout vl = new VerticalLayout();
+            	for (int i = 0; i < 100; i++) {
+            		vl.addComponent(new Label("Lorem ipsum " + i));
+            	}
+            	popup.setContent(vl);
+            	popup.setHeight("300px");
+            	popup.center();
+            	UI.getCurrent().addWindow(popup);
             }
         });
         layout.addComponent(button);
